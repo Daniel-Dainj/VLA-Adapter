@@ -10,9 +10,9 @@ authors = [
     {name = "Lingxiao Li", email="lingxiao-li@bupt.edu.cn"},
 ]
 description = "VLA-Adapter: An Effective Paradigm for Tiny-Scale Vision-Language-Action Model"
-version = "0.0.1"
+version = "0.1.0"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.11"
 keywords = ["vision-language-action models", "tiny-scale backbone", "fine-tuning", "robotic learning"]
 license = {file = "LICENSE"}
 classifiers = [
@@ -23,17 +23,16 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3 :: Only",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
 dependencies = [
-    "accelerate>=0.25.0",
-    "draccus==0.8.0",
+    "accelerate==1.1.1",
+    "draccus",
     "einops",
     # "flash_attn==2.5.5",      # Here for documentation -- install *AFTER* editable install (follow README)
+    "flash_attn @ https://github.com/Dao-AILab/flash-attention/releases/download/v2.5.5/flash_attn-2.5.5+cu122torch2.2cxx11abiFALSE-cp311-cp311-linux_x86_64.whl",
     "huggingface_hub",
     "json-numpy",
     "jsonlines",
@@ -41,32 +40,42 @@ dependencies = [
     "peft==0.11.1",
     "protobuf",
     "rich",
-    "sentencepiece==0.1.99",
+    "sentencepiece",
     "timm==0.9.10",
     "tokenizers==0.19.1",
     "torch==2.2.0",
     "torchvision==0.17.0",
     "torchaudio==2.2.0",
-    "transformers @ git+https://github.com/moojink/transformers-openvla-oft.git",  # IMPORTANT: Use this fork for bidirectional attn (for parallel decoding)
+    "transformers @ git+https://github.com/moojink/transformers-openvla-oft",  # IMPORTANT: Use this fork for bidirectional attn (for parallel decoding)
     "wandb",
-    "tensorflow==2.15.0",
-    "tensorflow_datasets==4.9.3",
-    "tensorflow_graphics==2021.12.3",
+    "tensorflow",
+    "tensorflow_datasets",
+    "tensorflow_graphics",
     "dlimp @ git+https://github.com/moojink/dlimp_openvla",
-    "diffusers==0.30.3",
-    "imageio",
+    "diffusers",
+    "imageio[ffmpeg]",
     "uvicorn",
     "fastapi",
     "json-numpy",
+    "robosuite==1.4.0",
+    "bddl",
+    "easydict",
+    "cloudpickle",
+    "gym",
+    "libero",
+    "bitsandbytes",
+    "tacto",
+    "calvin_env",
+    "calvin_agent",
 ]
 
 [project.optional-dependencies]
 dev = [
-    "black>=24.2.0",
+    "black",
     "gpustat",
     "ipython",
     "pre-commit",
-    "ruff>=0.2.2",
+    "ruff",
 ]
 sagemaker = [
     "boto3",
@@ -100,3 +109,35 @@ ignore = ["F722"]
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["E402", "F401"]
+
+[[tool.uv.index]]
+name = "pypi"
+url = "https://mirrors.ustc.edu.cn/pypi/simple"
+default = true
+[[tool.uv.index]]
+name = "pytorch-cu121"
+url = "https://mirrors.nju.edu.cn/pytorch/whl/cu121"
+explicit = true
+
+[tool.uv]
+override-dependencies = [
+    "torch==2.2.0",
+    "torchvision==0.17.0",
+    "torchaudio==2.2.0",
+    "setuptools==80.8.0",
+]
+
+[tool.uv.sources]
+torch = [
+  { index = "pytorch-cu121", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+]
+torchvision = [
+  { index = "pytorch-cu121", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+]
+torchaudio = [
+  { index = "pytorch-cu121", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+]
+libero = { path = "./third_party/libero", editable = true }
+tacto = { path = "./third_party/calvin/calvin_env/tacto", editable = true }
+calvin_env = { path = "./third_party/calvin/calvin_env", editable = true }
+calvin_agent = { path = "./third_party/calvin/calvin_models", editable = true }

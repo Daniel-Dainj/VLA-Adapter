@@ -1,0 +1,7 @@
+{
+    "python.analysis.extraPaths": [
+        "./third_party/libero",
+        "./third_party/calvin/calvin_env",
+        "./third_party/calvin/calvin_models",
+    ]
+}

@@ -1,3 +1,6 @@
 [submodule "third_party/libero"]
 	path = third_party/libero
 	url = https://github.com/Daniel-Dainj/LIBERO
+[submodule "third_party/calvin"]
+	path = third_party/calvin
+	url = https://github.com/Daniel-Dainj/calvin

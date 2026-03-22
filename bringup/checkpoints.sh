@@ -1,8 +1,9 @@
 hf download Stanford-ILIAD/prism-qwen25-extra-dinosiglip-224px-0_5b \
 --repo-type model \
---local-dir /home/dainanjun/data/checkpoints/prism-qwen25-extra-dinosiglip-224px-0_5b
+--local-dir /media/dainanjun/T9/checkpoints/prism-qwen25-extra-dinosiglip-224px-0_5b/
 
-rm -rf pretrained_models/prism* && ln -sfn /home/dainanjun/data/checkpoints/prism-qwen25-extra-dinosiglip-224px-0_5b pretrained_models/
+# rm -rf pretrained_models/prism*
+# ln -sfn /media/dainanjun/T9/checkpoints/prism-qwen25-extra-dinosiglip-224px-0_5b/ pretrained_models/
 
 hf download VLA-Adapter/LIBERO-Spatial-Pro \
 --repo-type model \
@@ -24,4 +25,4 @@ hf download VLA-Adapter/CALVIN-ABC-Pro \
 --repo-type model \
 --local-dir /media/dainanjun/T9/checkpoints/VLA-Adapter/CALVIN-ABC-Pro
 
-ln -sfn /media/dainanjun/T9/checkpoints/VLA-Adapter checkpoints
+# ln -sfn /media/dainanjun/T9/checkpoints/VLA-Adapter checkpoints
